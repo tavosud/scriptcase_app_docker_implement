@@ -1,0 +1,21 @@
+version: '3.7'
+
+volumes:
+  logs:
+      driver: local
+
+services:
+    scriptcase_app_site:
+      container_name: site_scriptcase_app
+      build:
+        context: .
+        dockerfile: Dockerfile
+      working_dir: /var/www
+      command: php -S 0.0.0.0:8888 -t .
+      environment:
+          docker: "true"
+      ports:
+          - 8888:8888
+      volumes:
+          - .:/var/www
+      network_mode: db_default
